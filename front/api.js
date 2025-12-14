@@ -44,7 +44,9 @@ async function uploadFileToS3(uploadUrl, file) {
 
 // 요약 상태 조회
 async function fetchSummaryStatus(userId, fileId) {
-    const response = await fetch(`${CONFIG.API_BASE_URL}/summary?user_id=${userId}&file_id=${fileId}`);
+    const safeFileId = encodeURIComponent(fileId);
+    
+    const response = await fetch(`${CONFIG.API_BASE_URL}/summary?user_id=${userId}&file_id=${safeFileId}`);
     if (!response.ok) {
         throw new Error('요약 상태 조회 실패');
     }
